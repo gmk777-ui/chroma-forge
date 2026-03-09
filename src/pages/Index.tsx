@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FlaskConical, Search, FileText, BarChart3, BookOpen, Atom, Brain, FileOutput, Building2, GraduationCap, Microscope, ShieldCheck, Beaker } from "lucide-react";
 
