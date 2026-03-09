@@ -2,8 +2,29 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Search, CheckCircle2 } from "lucide-react";
 
+const exampleResult = {
+  method: {
+    title: "Proposed LC method (demo)",
+    column: "C18, 150 × 4.6 mm, 5 µm",
+    mobilePhase: "Acetonitrile : 0.1% formic acid (60:40, v/v)",
+    flowRate: "1.0 mL/min",
+    detection: "UV at 240 nm",
+    runtime: "10 min",
+    notes: "Static demo only – for illustration, not for real validation."
+  },
+  literature: [
+    { title: "RP‑HPLC method for Amlodipine in tablets (demo)", journal: "Journal of Pharmaceutical Analysis", year: 2019 },
+    { title: "Stability‑indicating LC method for Amlodipine (demo)", journal: "International Journal of Pharm Sci", year: 2021 }
+  ],
+  properties: {
+    logP: "≈ 3.0 (approximate, demo)",
+    pKa: "≈ 8.6 (basic, demo)",
+    solubility: "Sparingly soluble in water (demo)"
+  }
+};
+
 export default function DrugSearchPage() {
-  const [submitted, setSubmitted] = useState(false);
+  const [result, setResult] = useState<null | typeof exampleResult>(null);
 
   return (
     <div className="container py-10">
@@ -63,26 +84,46 @@ export default function DrugSearchPage() {
           </div>
 
           <button
-            onClick={() => setSubmitted(true)}
+            onClick={() => setResult(exampleResult)}
             className="w-full py-2.5 rounded-md bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
           >
             <Search className="w-4 h-4" /> Generate Method
           </button>
         </div>
 
-        {submitted && (
-          <div className="card-science p-6 mt-6 border-primary/30">
-            <div className="flex items-start gap-3">
-              <CheckCircle2 className="w-6 h-6 text-accent shrink-0 mt-0.5" />
-              <div>
-                <h3 className="font-semibold mb-1">Method Generated Successfully (Demo)</h3>
-                <p className="text-sm text-muted-foreground mb-3">
-                  In production, this would trigger AI analysis. For now, view our example generated method:
-                </p>
-                <Link to="/method" className="text-sm font-medium text-primary hover:underline">
-                  View Example Generated Method →
-                </Link>
-              </div>
+        {result && (
+          <div className="mt-8 grid md:grid-cols-3 gap-6">
+            <div className="card-science p-6">
+              <h3 className="font-semibold mb-3 text-primary">Proposed LC Method</h3>
+              <dl className="space-y-2 text-sm">
+                <div><dt className="text-muted-foreground">Column</dt><dd className="font-medium">{result.method.column}</dd></div>
+                <div><dt className="text-muted-foreground">Mobile Phase</dt><dd className="font-medium">{result.method.mobilePhase}</dd></div>
+                <div><dt className="text-muted-foreground">Flow Rate</dt><dd className="font-medium">{result.method.flowRate}</dd></div>
+                <div><dt className="text-muted-foreground">Detection</dt><dd className="font-medium">{result.method.detection}</dd></div>
+                <div><dt className="text-muted-foreground">Runtime</dt><dd className="font-medium">{result.method.runtime}</dd></div>
+              </dl>
+              <p className="text-xs text-muted-foreground mt-3 italic">{result.method.notes}</p>
+            </div>
+
+            <div className="card-science p-6">
+              <h3 className="font-semibold mb-3 text-primary">Key Literature (demo)</h3>
+              <ul className="space-y-3">
+                {result.literature.map((lit, i) => (
+                  <li key={i} className="text-sm">
+                    <p className="font-medium">{lit.title}</p>
+                    <p className="text-muted-foreground">{lit.journal}, {lit.year}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="card-science p-6">
+              <h3 className="font-semibold mb-3 text-primary">Drug Properties (demo)</h3>
+              <dl className="space-y-2 text-sm">
+                <div><dt className="text-muted-foreground">logP</dt><dd className="font-medium">{result.properties.logP}</dd></div>
+                <div><dt className="text-muted-foreground">pKa</dt><dd className="font-medium">{result.properties.pKa}</dd></div>
+                <div><dt className="text-muted-foreground">Solubility</dt><dd className="font-medium">{result.properties.solubility}</dd></div>
+              </dl>
             </div>
           </div>
         )}
