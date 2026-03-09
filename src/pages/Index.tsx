@@ -19,6 +19,35 @@ const audiences = [
   { icon: BarChart3, label: "Analytical R&D" },
 ];
 
+const exampleResult = {
+  method: {
+    title: "Proposed LC method (demo)",
+    column: "C18, 150 × 4.6 mm, 5 µm",
+    mobilePhase: "Acetonitrile : 0.1% formic acid (60:40, v/v)",
+    flowRate: "1.0 mL/min",
+    detection: "UV at 240 nm",
+    runtime: "10 min",
+    notes: "Static demo only – for illustration, not for real validation."
+  },
+  literature: [
+    {
+      title: "RP‑HPLC method for Amlodipine in tablets (demo)",
+      journal: "Journal of Pharmaceutical Analysis",
+      year: 2019
+    },
+    {
+      title: "Stability‑indicating LC method for Amlodipine (demo)",
+      journal: "International Journal of Pharm Sci",
+      year: 2021
+    }
+  ],
+  properties: {
+    logP: "≈ 3.0 (approximate, demo)",
+    pKa: "≈ 8.6 (basic, demo)",
+    solubility: "Sparingly soluble in water (demo)"
+  }
+};
+
 export default function HomePage() {
   return (
     <>
