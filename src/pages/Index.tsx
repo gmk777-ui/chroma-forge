@@ -50,6 +50,8 @@ const exampleResult = {
 };
 
 export default function HomePage() {
+  const [result, setResult] = useState<null | typeof exampleResult>(null);
+
   return (
     <>
       {/* Hero */}
