@@ -100,13 +100,56 @@ export default function HomePage() {
                     <option>LC-MS/MS</option>
                   </select>
                 </div>
-                <button disabled className="w-full py-2.5 rounded-md bg-muted text-muted-foreground text-sm font-medium cursor-not-allowed">
-                  Generate Method (Demo Only)
+                <button
+                  onClick={() => setResult(exampleResult)}
+                  className="w-full py-2.5 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
+                >
+                  Example Results
                 </button>
-                <p className="text-xs text-muted-foreground text-center">No backend — this is a static demo</p>
+                <p className="text-xs text-muted-foreground text-center">Static demo — shows example data</p>
               </div>
             </div>
           </div>
+
+          {result && (
+            <div className="container mt-10 grid md:grid-cols-3 gap-6">
+              {/* Proposed LC method */}
+              <div className="card-science p-6">
+                <h3 className="font-semibold mb-3 text-primary">Proposed LC Method</h3>
+                <dl className="space-y-2 text-sm">
+                  <div><dt className="text-muted-foreground">Column</dt><dd className="font-medium">{result.method.column}</dd></div>
+                  <div><dt className="text-muted-foreground">Mobile Phase</dt><dd className="font-medium">{result.method.mobilePhase}</dd></div>
+                  <div><dt className="text-muted-foreground">Flow Rate</dt><dd className="font-medium">{result.method.flowRate}</dd></div>
+                  <div><dt className="text-muted-foreground">Detection</dt><dd className="font-medium">{result.method.detection}</dd></div>
+                  <div><dt className="text-muted-foreground">Runtime</dt><dd className="font-medium">{result.method.runtime}</dd></div>
+                </dl>
+                <p className="text-xs text-muted-foreground mt-3 italic">{result.method.notes}</p>
+              </div>
+
+              {/* Key literature */}
+              <div className="card-science p-6">
+                <h3 className="font-semibold mb-3 text-primary">Key Literature (demo)</h3>
+                <ul className="space-y-3">
+                  {result.literature.map((lit, i) => (
+                    <li key={i} className="text-sm">
+                      <p className="font-medium">{lit.title}</p>
+                      <p className="text-muted-foreground">{lit.journal}, {lit.year}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Drug properties */}
+              <div className="card-science p-6">
+                <h3 className="font-semibold mb-3 text-primary">Drug Properties (demo)</h3>
+                <dl className="space-y-2 text-sm">
+                  <div><dt className="text-muted-foreground">logP</dt><dd className="font-medium">{result.properties.logP}</dd></div>
+                  <div><dt className="text-muted-foreground">pKa</dt><dd className="font-medium">{result.properties.pKa}</dd></div>
+                  <div><dt className="text-muted-foreground">Solubility</dt><dd className="font-medium">{result.properties.solubility}</dd></div>
+                </dl>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
