@@ -39,7 +39,8 @@ const buildExampleResult = (drugName: string) => ({
 });
 
 export default function HomePage() {
-  const [result, setResult] = useState<null | typeof exampleResult>(null);
+  const [result, setResult] = useState<null | ReturnType<typeof buildExampleResult>>(null);
+  const [drugName, setDrugName] = useState("");
 
   return (
     <>
