@@ -74,7 +74,7 @@ export default function HomePage() {
               <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground mb-1">Quick Drug Search</p>
               <p className="text-sm text-muted-foreground mb-4">Jump directly into method generation workflow.</p>
               <div className="space-y-3">
-                <input type="text" placeholder="Enter drug name (e.g., Metformin)" className="w-full px-4 py-3 rounded-lg border bg-background text-sm" />
+                <input type="text" placeholder="Enter drug name (e.g., Metformin)" value={drugName} onChange={(e) => setDrugName(e.target.value)} className="w-full px-4 py-3 rounded-lg border bg-background text-sm" />
                 <select className="w-full px-4 py-3 rounded-lg border bg-background text-sm">
                   <option>API</option>
                   <option>Pharmaceutical Formulation</option>
@@ -86,10 +86,10 @@ export default function HomePage() {
                   <option>LC-MS/MS</option>
                 </select>
                 <button
-                  onClick={() => setResult(exampleResult)}
+                  onClick={() => setResult(buildExampleResult(drugName.trim() || "Drug"))}
                   className="w-full py-3 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
                 >
-                  Analyze in LCForge AI <ChevronRight className="w-4 h-4" />
+                  Generate Method (demo only) <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
             </div>
