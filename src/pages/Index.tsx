@@ -17,29 +17,30 @@ const badges = [
   "PubChem and PubMed powered insights",
 ];
 
-const exampleResult = {
+const buildExampleResult = (drugName: string) => ({
   method: {
-    title: "Proposed LC method (demo)",
+    title: `Proposed LC method for ${drugName} (demo)`,
     column: "C18, 150 × 4.6 mm, 5 µm",
     mobilePhase: "Acetonitrile : 0.1% formic acid (60:40, v/v)",
     flowRate: "1.0 mL/min",
     detection: "UV at 240 nm",
     runtime: "10 min",
-    notes: "Static demo only – for illustration, not for real validation."
+    notes: `Static demo only – illustrative method for ${drugName}, not for real validation.`
   },
   literature: [
-    { title: "RP‑HPLC method for Amlodipine in tablets (demo)", journal: "Journal of Pharmaceutical Analysis", year: 2019 },
-    { title: "Stability‑indicating LC method for Amlodipine (demo)", journal: "International Journal of Pharm Sci", year: 2021 }
+    { title: `RP‑HPLC method for ${drugName} in tablets (demo)`, journal: "Journal of Pharmaceutical Analysis", year: 2019 },
+    { title: `Stability‑indicating LC method for ${drugName} (demo)`, journal: "International Journal of Pharm Sci", year: 2021 }
   ],
   properties: {
-    logP: "≈ 3.0 (approximate, demo)",
-    pKa: "≈ 8.6 (basic, demo)",
-    solubility: "Sparingly soluble in water (demo)"
+    logP: `≈ 3.0 (approximate, demo for ${drugName})`,
+    pKa: `≈ 8.6 (basic, demo for ${drugName})`,
+    solubility: `Sparingly soluble in water (demo for ${drugName})`
   }
-};
+});
 
 export default function HomePage() {
-  const [result, setResult] = useState<null | typeof exampleResult>(null);
+  const [result, setResult] = useState<null | ReturnType<typeof buildExampleResult>>(null);
+  const [drugName, setDrugName] = useState("");
 
   return (
     <>
@@ -73,7 +74,7 @@ export default function HomePage() {
               <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground mb-1">Quick Drug Search</p>
               <p className="text-sm text-muted-foreground mb-4">Jump directly into method generation workflow.</p>
               <div className="space-y-3">
-                <input type="text" placeholder="Enter drug name (e.g., Metformin)" className="w-full px-4 py-3 rounded-lg border bg-background text-sm" />
+                <input type="text" placeholder="Enter drug name (e.g., Metformin)" value={drugName} onChange={(e) => setDrugName(e.target.value)} className="w-full px-4 py-3 rounded-lg border bg-background text-sm" />
                 <select className="w-full px-4 py-3 rounded-lg border bg-background text-sm">
                   <option>API</option>
                   <option>Pharmaceutical Formulation</option>
@@ -85,10 +86,10 @@ export default function HomePage() {
                   <option>LC-MS/MS</option>
                 </select>
                 <button
-                  onClick={() => setResult(exampleResult)}
+                  onClick={() => setResult(buildExampleResult(drugName.trim() || "Drug"))}
                   className="w-full py-3 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
                 >
-                  Analyze in LCForge AI <ChevronRight className="w-4 h-4" />
+                  Generate Method (demo only) <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
             </div>
